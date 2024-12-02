@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     """Категория пиццы (например, мясная, вегетарианская)."""
     name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
@@ -13,25 +13,24 @@ class Category(models.Model):
 class Pizza(models.Model):
     """Модель пиццы."""
     name = models.CharField(max_length=200)
-    weight = models.DecimalField(max_digits=6, decimal_places=2)
-    size = models.DecimalField(max_digits=6, decimal_places=2)
+    weight = models.IntegerField(max_length=20, null=False)
+    size = models.IntegerField(max_length=20, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='pizzas')
-    description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    available = models.BooleanField(default=True)
+    ingredients = models.TextField(blank=True)
+    price = models.IntegerField(max_length=20, null=False)
     image = models.ImageField(upload_to='pizza_images/', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-class Photo(models.Model):
-    """Фотография пиццы (для галлереи)."""
-    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE, related_name='photos')
-    image = models.ImageField(upload_to='pizza_images/')
-
-    def __str__(self):
-        return f"Фотография для {self.pizza.name}"
+# class Photo(models.Model):
+#     """Фотография пиццы (для галлереи)."""
+#     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE, related_name='photos')
+#     image = models.ImageField(upload_to='pizza_images/')
+#
+#     def __str__(self):
+#         return f"Фотография для {self.pizza.name}"
 
 
 class Order(models.Model):
