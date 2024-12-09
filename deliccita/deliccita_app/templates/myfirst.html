@@ -1,0 +1,23 @@
+<!-- templates/myfirst.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu</title>
+</head>
+<body>
+    <h1>Pizza Menu</h1>
+    <ul>
+        {% for pizza in pizzas %}
+            <li>
+                <h2>{{ pizza.name }}</h2>
+                <p>Вес: {{ pizza.weight }} г</p>
+                <p>Цена: {{ pizza.price }} грн</p>
+            </li>
+        {% empty %}
+            <p>Нет пицц.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
