@@ -68,13 +68,32 @@ class OrderItem(models.Model):
 class Profile(models.Model):
     """Профиль пользователя (дополнительная информация)."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=20, blank=True)
+    phone_number = models.IntegerField(null=False)
     address = models.CharField(max_length=255, blank=True)
+
+class Basket(models.Model):
+    name = models.CharField(max_length=200)
+    pizzas = models.ManyToManyField(Pizza, related_name="pizzas_in_basket")
+
+    def  __str__(self):
+        return f"Вы отложили {self.pizzas} в корзину"
 
 class Drink(models.Model):
     name = models.CharField(max_length=200)
     size = models.IntegerField(null=False)
     weight = models.IntegerField(null=False)
     price = models.IntegerField(null=False)
+
+class News(models.Model):
+    name = models.CharField(max_length=200)
+    pizzas = models.ManyToManyField(Pizza, related_name="new_pizzas")
+
+    def  __str__(self):
+        return f"Новинки: {self.pizzas}"
+
+
+pb1 = Basket("Mozzarella")
+pb2 = Basket("Margaritta")
+print(Basket)
 
 # Create your models here.
