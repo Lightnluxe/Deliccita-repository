@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import Pizza
 
 def deliccita_app (request):
@@ -21,14 +21,14 @@ def register_view (request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(data=request.POST)
         if form.is_valid():
-            user = form.get_user()
+            user = form.cleaned_data["user"]
             login(request, user)
-            return redirect('/')
+            return redirect('deliccita_app')
     else:
-        form = AuthenticationForm()
-    return render(request, 'deliccita_app/login.html', {'form': form})
+        form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})
 
 
 # Create your views here.

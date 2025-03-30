@@ -131,3 +131,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'deliccita_app.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
